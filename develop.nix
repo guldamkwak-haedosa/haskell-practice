@@ -14,12 +14,12 @@
   ghcid-exe = mk-ghcid-command { name = "ghcid-exe"; target = "exe:fmmdosa-golden"; };
 
 in (haskellPackages.shellFor {
-  packages = p: [ p.fmmdosa-golden ];
+  packages = p: [ p.hello ];
   buildInputs =
     (with haskellPackages;
     [ haskell-language-server
       ghcid
-      threadscope
+      #threadscope
       profiteur
       ghc-prof-flamegraph
       hp2pretty
@@ -29,9 +29,7 @@ in (haskellPackages.shellFor {
       hpack
       hlint
       ghcid-exe
-      hplot
       libreoffice
       numdiff
-      fmmdosa-cli
     ];
 })

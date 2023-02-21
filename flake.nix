@@ -2,8 +2,8 @@
   description = "fmmdosa-json";
 
   inputs = {
-
-    nixpkgs.follows = "fmmdosa/nixpkgs";
+    #fmmdosa.url = "git+ssh://git@github.com/haedosa/fmmdosa";
+    #nixpkgs.follows = "fmmdosa/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
 
   };
