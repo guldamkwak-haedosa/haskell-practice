@@ -14,7 +14,7 @@
   ghcid-exe = mk-ghcid-command { name = "ghcid-exe"; target = "exe:fmmdosa-golden"; };
 
 in (haskellPackages.shellFor {
-  packages = p: [ p.hello ];
+  packages = p: [ p.learn-you-haskell ];
   buildInputs =
     (with haskellPackages;
     [ haskell-language-server

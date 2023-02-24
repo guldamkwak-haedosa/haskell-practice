@@ -13,7 +13,13 @@
     {
       overlay = nixpkgs.lib.composeManyExtensions
         (
-          with inputs;[]
+          with inputs;[
+            (final: prev : {
+              haskellPackages = prev.haskellPackages.extend (hfinal: hprev: {
+                learn-you-haskell = hfinal.callCabal2nix "learn-you-haskell" ./learn-you-haskell {};
+              });
+            })
+          ]
         );
     } // flake-utils.lib.eachDefaultSystem (system:
 
