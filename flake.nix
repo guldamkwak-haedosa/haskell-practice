@@ -1,44 +1,33 @@
 {
-  description = "fmmdosa-json";
-
+  description = "Learn You a Haskell";
   inputs = {
-    #fmmdosa.url = "git+ssh://git@github.com/haedosa/fmmdosa";
-    #nixpkgs.follows = "fmmdosa/nixpkgs";
+    haedosa.url = "github:haedosa/flakes";
+    nixpkgs.follows = "haedosa/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
-
   };
 
-  outputs =
-    inputs@{ self, nixpkgs, flake-utils,  ... }:
-    {
-      overlay = nixpkgs.lib.composeManyExtensions
-        (
-          with inputs;[
-            (final: prev : {
-              haskellPackages = prev.haskellPackages.extend (hfinal: hprev: {
-                learn-you-haskell = hfinal.callCabal2nix "learn-you-haskell" ./learn-you-haskell {};
-              });
-            })
-          ]
-        );
-    } // flake-utils.lib.eachDefaultSystem (system:
-
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          config = {};
-          overlays = [ self.overlay ];
+  outputs = {self, nixpkgs, flake-utils, ...}@inputs: {
+    overlay = nixpkgs.lib.composeManyExtensions
+      [(final: prev:
+        {
+          haskellPackages = prev.haskellPackages.extend
+            (hfinal: hprev: {
+              learnyouahaskell = hfinal.callCabal2nix "learnyouahaskell" ./. {};
+            });
+        }
+      )];
+  } // flake-utils.lib.eachDefaultSystem
+    (system:
+    let
+      pkgs = import nixpkgs { inherit system; overlays = [self.overlay]; };
+    in {
+      devShells = {
+        default = pkgs.haskellPackages.shellFor {
+          packages = p:[
+            p.learnyouahaskell
+          ];
         };
-      in
-      rec {
-
-        devShells.default = import ./develop.nix { inherit pkgs; };
-
-        # packages = {
-        #   default = pkgs.haskellPackages.fmmdosa-golden;
-        # };
-
-      }
-    );
-
+      };
+    }
+  );
 }
