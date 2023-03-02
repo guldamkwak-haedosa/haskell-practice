@@ -26,6 +26,9 @@
           packages = p:[
             p.learnyouahaskell
           ];
+          buildInputs=[
+            pkgs.haskellPackages.haskell-language-server
+          ];
         };
       };
     }
