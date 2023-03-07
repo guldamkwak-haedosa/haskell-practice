@@ -20,7 +20,7 @@
     (system:
     let
       pkgs = import nixpkgs { inherit system; overlays = [self.overlay]; };
-    in {
+    in rec {
       devShells = {
         default = pkgs.haskellPackages.shellFor {
           packages = p:[
@@ -28,7 +28,17 @@
           ];
           buildInputs=[
             pkgs.haskellPackages.haskell-language-server
+            pkgs.haskellPackages.cabal-install
           ];
+        };
+      };
+      packages = {
+        default = pkgs.haskellPackages.learnyouahaskell;
+      };
+      apps = {
+        default = {
+          type = "app";
+          program = "${packages.default}/bin/hello";
         };
       };
     }

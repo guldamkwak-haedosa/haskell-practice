@@ -2,3 +2,9 @@ cradle:
   cabal:
     - path: "src"
       component: "lib:learnyouahaskell"
+
+    - path: "app/first.hs"
+      component: "learnyouahaskell:exe:first"
+
+    - path: "app/hello.hs"
+      component: "learnyouahaskell:exe:hello"

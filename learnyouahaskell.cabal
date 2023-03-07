@@ -3,11 +3,23 @@ name: learnyouahaskell
 version: 0.1
 
 common common
-build-depends:    base
-default-language: Haskell2010
-ghc-options:      -O2
+  build-depends:    base
+  default-language: Haskell2010
+  ghc-options:      -O2
 
 library
-  import: common
-  hs-source-dirs: src
-  exposed-modules:
+  import:          common
+  hs-source-dirs:  src
+  exposed-modules: First
+
+executable first
+  import:         common
+  hs-source-dirs: app
+  main-is:        first.hs
+  build-depends:  learnyouahaskell
+
+executable hello
+  import:         common
+  hs-source-dirs: app
+  main-is:        hello.hs
+  build-depends:  learnyouahaskell
