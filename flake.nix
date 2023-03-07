@@ -40,6 +40,10 @@
           type = "app";
           program = "${packages.default}/bin/hello";
         };
+        first = {
+          type = "app";
+          program = "${packages.default}/bin/first";
+        };
       };
     }
   );

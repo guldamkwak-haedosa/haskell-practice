@@ -1,7 +1,9 @@
 import First
+import System.Environment (getArgs)
 
 main :: IO ()
 main = do
-  let x = 3
-      y = doubleNum x
+  [x] <- getArgs
+  let z = read x :: Double
+      y = doubleNum z
   print y
